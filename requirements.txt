@@ -1,0 +1,9 @@
+﻿streamlit
+plotly
+pandas
+psycopg2-binary
+sqlalchemy
+python-dotenv
+typer
+rich
+groq
