@@ -1,65 +1,143 @@
 # Inditex Analytics
 
-**Business intelligence suite for Inditex (Zara, Bershka, Massimo Dutti, and more) - built with PostgreSQL, a professional CLI, an AI-powered SQL agent, and an interactive dashboard.**
+**A complete business intelligence suite for Inditex — combining PostgreSQL, a professional CLI, an AI-powered Data Agent, and an interactive dashboard.**
 
-**Powered by real financial data (2023-2025) | Query the database in natural language | 100% open source**
+**Real financial data (2023-2025) · Ask questions in plain English · AI writes the SQL · Full audit trail**
 
-![Python](https://img.shields.io/badge/python-3.11-blue.svg)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-336791.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-red.svg)
-![Groq](https://img.shields.io/badge/AI-Groq-orange.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-
----
-
-## What This Is
-
-A complete **business intelligence suite** that analyzes Inditex's financial data - the world's largest fashion retailer, owner of Zara, Bershka, Stradivarius, Massimo Dutti, Pull&Bear, and Oysho.
-
-Unlike typical dashboards, this project combines **four interfaces** over the same PostgreSQL database:
-
-| Interface | Purpose |
-|---|---|
-| **Professional CLI** | Fast reporting in your terminal (Typer + Rich) |
-| **AI SQL Agent** | Ask questions in plain English or Portuguese - the AI writes the SQL |
-| **Streamlit Dashboard** | Interactive charts and KPIs for executives |
-| **PostgreSQL Database** | Real relational schema with joins, window functions, and CTEs |
-
-**Real business intelligence, applied to a real company.**
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.40-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Groq](https://img.shields.io/badge/Groq-Llama%203.3%2070B-F55036)](https://groq.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)]()
 
 ---
 
-## Features
+## 📊 See It in Action
 
-### AI SQL Agent
-- **Natural language to SQL** (English, Portuguese, or Spanish)
-- **Chain of Thought** - explains its reasoning before writing SQL
-- **Few-shot prompting** - learns from examples for higher accuracy
-- **Auto-retry** - if the SQL fails, the agent fixes it automatically
-- **SQL validation** - blocks non-SELECT queries (safety)
-- **Query logging** - every query saved to query_log table
-- **Follow-up suggestions** - suggests related questions to explore
+![Dashboard](screenshots/dashboard.png)
 
-### Professional CLI
-- Built with **Typer + Rich** for a polished terminal experience
-- Commands: report, brands, abc, regions, growth, ask
+> **Dashboard:** 4 KPI cards, sales by brand, growth ranking, and ABC portfolio analysis — all queried live from PostgreSQL.
+
+![Data Agent](screenshots/agent.png)
+
+> **Data Agent:** ask a question in plain English — the AI plans, writes the SQL, validates it, runs it, and explains the result with a business insight.
+
+---
+
+## 🎯 What This Is
+
+Inditex is the world's largest fashion retailer — owner of **Zara, Bershka, Stradivarius, Massimo Dutti, Pull&Bear, and Oysho**.
+
+This project is a complete **business intelligence suite** that answers real questions about Inditex's financial performance, combining **four interfaces** over the same PostgreSQL database:
+
+| | Interface | What It Does |
+|---|---|---|
+| 🖥️ | **Professional CLI** | Instant reports in your terminal (Typer + Rich) |
+| 🤖 | **Data Agent** | Ask questions in plain English — the AI writes the SQL |
+| 📊 | **Streamlit Dashboard** | Interactive charts and KPIs |
+| 🗄️ | **PostgreSQL Database** | Real relational schema with joins, CTEs, window functions |
+
+**Real business intelligence. Real data. Real engineering.**
+
+---
+
+## ✨ Features
+
+### 🤖 Data Agent (AI-Powered SQL)
+
+- **Natural language to SQL** — English, Portuguese, or Spanish
+- **Chain of Thought** — explains its reasoning *before* writing SQL
+- **Few-shot prompting** — learns from curated examples for higher accuracy
+- **Auto-retry** — if the SQL fails, the agent reads the error and fixes it
+- **SQL validation** — only SELECT and WITH allowed (blocks all mutations)
+- **Full audit trail** — every query logged to query_log table with timing
+- **Follow-up suggestions** — the agent proposes 3 related questions
+
+### 🖥️ Professional CLI
+
+- Built with **Typer** + **Rich** for a polished terminal experience
+- Six commands: eport, rands, bc, egions, growth, sk
 - Colored tables, progress spinners, medals, ASCII bar charts
-- Duration tracking in milliseconds
+- Millisecond-level query timing displayed on every answer
 
-### Dashboard (Streamlit)
+### 📊 Dashboard
+
 - 4 KPI cards (revenue, net income, stores, countries)
-- Sales by brand, growth rankings, region distribution
-- ABC analysis for the brand portfolio
+- Sales by brand (bar chart)
+- Growth ranking (colored bars)
+- Geographic distribution (donut chart)
+- ABC portfolio analysis table
 
-### PostgreSQL Database
-- Normalized schema with foreign keys
-- Real Inditex financial data (2023-2025)
-- Window functions, CTEs, aggregations, joins
-- Query log for auditing
+### 🗄️ Database
+
+- **5 normalized tables** with proper foreign keys
+- Window functions, CTEs, aggregations, and joins used throughout
+- Query log for auditing and performance analysis
+- Real Inditex financial data for 2023, 2024, and 2025
 
 ---
 
-## Quick Start
+## 🧠 How the Data Agent Works
+
+The agent follows a **7-step pipeline**:
+
+    ┌──────────────────────────────────────────────────┐
+    │  "Which brand is growing fastest?"               │
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  1. PLAN      LLM reasons about the approach     │
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  2. GENERATE  LLM writes SQL (few-shot examples) │
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  3. VALIDATE  Block non-SELECT / non-WITH        │
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  4. EXECUTE   Run on PostgreSQL (retry on error) │
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  5. LOG       Save to query_log with timing      │
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  6. EXPLAIN   Natural language + business insight│
+    └─────────────────────┬────────────────────────────┘
+                          ▼
+    ┌──────────────────────────────────────────────────┐
+    │  7. SUGGEST   3 follow-up questions              │
+    └──────────────────────────────────────────────────┘
+
+**The agent never invents data.** It builds SQL from a fixed schema, executes it against real data, and explains the result.
+
+Read more in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+---
+
+## 💬 Example Queries
+
+Try asking the Data Agent anything from this list:
+
+| Question | What It Answers |
+|---|---|
+| "Which brand is growing fastest?" | Top growth brand + rate |
+| "What is the revenue per store?" | Operational efficiency |
+| "How did revenue evolve from 2023 to 2025?" | YoY trend |
+| "Which region accounts for more than 50% of sales?" | Geographic concentration |
+| "Top 3 brands by growth with their market share" | Multi-metric analysis |
+| "What is the profit margin in 2025?" | Profitability |
+
+The agent works in **English, Portuguese, and Spanish** — it responds in the language of the question.
+
+---
+
+## 🚀 Quick Start
 
 ### 1. Clone and install
 
@@ -69,119 +147,131 @@ Unlike typical dashboards, this project combines **four interfaces** over the sa
 
 ### 2. Set up PostgreSQL
 
-Install PostgreSQL 17 and create the database:
+Install PostgreSQL 17, then:
 
+    psql -U postgres
     CREATE DATABASE inditex_db;
+
+Load the schema and data (see queries.sql for the structure).
 
 ### 3. Configure environment
 
-Copy .env.example to .env and fill in:
+Copy .env.example to .env:
 
     DB_HOST=localhost
     DB_PORT=5432
     DB_NAME=inditex_db
     DB_USER=postgres
     DB_PASSWORD=your_password
-    GROQ_API_KEY=your_groq_api_key
+    GROQ_API_KEY=your_groq_key
 
-Get a free Groq key at https://console.groq.com/keys
+Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys).
 
 ### 4. Run
 
-CLI:
-
+**CLI:**
     python cli.py --help
     python cli.py report
     python cli.py ask "Which brand is growing fastest?"
 
-Dashboard:
-
+**Dashboard:**
     streamlit run app.py
 
 ---
 
-## How the AI Agent Works
-
-The agent follows a 6-step pipeline:
-
-1. PLAN - LLM thinks through the approach
-2. GENERATE - LLM writes SQL using few-shot examples
-3. VALIDATE - Block anything that is not SELECT/WITH
-4. EXECUTE - Run query (retry once on failure)
-5. LOG - Save to query_log table
-6. EXPLAIN - Natural language answer + business insight
-7. SUGGEST - 3 follow-up questions
-
-**Why this matters:** the agent never invents data. It generates SQL from the schema, runs it, and explains real results.
-
----
-
-## Project Structure
+## 📁 Project Structure
 
     inditex-analytics/
-    |-- app.py                  # Streamlit dashboard
-    |-- cli.py                  # Professional CLI (Typer + Rich)
-    |-- agent.py                # AI SQL agent (Groq + Llama)
-    |-- db.py                   # Database connection helper
-    |-- requirements.txt
-    |-- .env.example
-    |-- .gitignore
-    |-- README.md
-    |-- insights.md             # Business insights from the data
-    |-- queries.sql             # Commented SQL queries
+    ├── agent.py                # Data Agent (AI SQL + Chain of Thought)
+    ├── cli.py                  # Professional CLI (Typer + Rich)
+    ├── app.py                  # Streamlit dashboard
+    ├── db.py                   # Shared database interface
+    ├── queries.sql             # All SQL queries, commented
+    ├── insights.md             # Business analysis of the data
+    ├── ARCHITECTURE.md         # Technical deep-dive
+    ├── WHY.md                  # Problem statement and motivation
+    ├── screenshots/            # Product screenshots
+    ├── requirements.txt
+    ├── .env.example
+    ├── .gitignore
+    └── README.md
 
 ---
 
-## Business Insights
+## 📈 Business Insights
 
-See insights.md for the full analysis. Key findings:
+The project produced **six real findings** about Inditex — see [insights.md](insights.md):
 
 | # | Insight |
 |---|---|
-| 1 | Zara represents 70.4% of total sales - high concentration risk |
-| 2 | Zara grows only 1% YoY - the flagship is stagnating |
-| 3 | Oysho grows 15.5% - small brands grow 15x faster |
-| 4 | Revenue growth slowed from 7.47% (2024) to 3.19% (2025) |
-| 5 | Fewer stores, more revenue - 5,692 to 5,460 stores, revenue +3.9B |
-| 6 | ABC analysis: Zara + Bershka = 78.6% of sales (Class A) |
+| 1 | **Zara = 70.4% of sales** — high concentration risk |
+| 2 | **Zara grows only 1% YoY** — the flagship is stagnating |
+| 3 | **Oysho grows 15.5%** — small brands grow 15× faster |
+| 4 | **Growth rate halved** from 7.47% (2024) to 3.19% (2025) |
+| 5 | **Fewer stores, more revenue** — 232 fewer stores, +€3.9B revenue |
+| 6 | **Zara + Bershka = 78.6%** — ABC Class A |
 
-**Strategic takeaway:** Inditex is diversifying away from Zara while reducing physical stores - a classic modern retail strategy.
+**Strategic takeaway:** Inditex is diversifying away from Zara while reducing physical stores — the classic "fewer, better" modern retail strategy.
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Tools |
 |---|---|
-| Language | Python 3.11 |
-| Database | PostgreSQL 17 |
-| CLI | Typer, Rich |
-| AI | Groq API, Llama 3.3 70B |
-| Dashboard | Streamlit, Plotly |
-| Data | pandas, SQLAlchemy, psycopg2 |
-| Config | python-dotenv |
+| **Language** | Python 3.11 |
+| **Database** | PostgreSQL 17 |
+| **CLI** | Typer, Rich |
+| **AI** | Groq API, Llama 3.3 70B |
+| **Dashboard** | Streamlit, Plotly |
+| **Data** | pandas, SQLAlchemy, psycopg2 |
+| **Config** | python-dotenv |
 
 ---
 
-## Roadmap
+## 🎓 What This Project Demonstrates
+
+- **PostgreSQL** — schema design, foreign keys, window functions, CTEs
+- **Professional Python** — Typer, Rich, type hints, clean modules
+- **AI Engineering** — Chain of Thought, few-shot prompting, SQL validation, auto-retry
+- **LLM Integration** — Groq, prompt design, error recovery
+- **Data Visualization** — Streamlit, Plotly
+- **Software Architecture** — shared interfaces, separation of concerns
+- **Business Analysis** — ABC analysis, growth ranking, executive summaries
+
+---
+
+## 🗺️ Roadmap
 
 - [x] PostgreSQL schema with real Inditex data
 - [x] Professional CLI with 6 commands
-- [x] AI SQL agent with Chain of Thought
+- [x] Data Agent with Chain of Thought
 - [x] SQL validation and auto-retry
-- [x] Query logging
+- [x] Query logging and audit trail
 - [x] Streamlit dashboard
+- [x] Business insights document
+- [x] Technical architecture document
 - [ ] Add 2020-2022 historical data
 - [ ] Support for multiple companies (H&M, Nike, Adidas)
 - [ ] PDF report generation
 - [ ] REST API (FastAPI)
 - [ ] Web version of the agent
+- [ ] Unit tests for the agent pipeline
 
 ---
 
-## License
+## 📜 License
 
-MIT - see LICENSE.
+MIT — see [LICENSE](LICENSE).
+
+---
+
+## 🙏 Acknowledgements
+
+- **Inditex** — for publishing detailed annual reports
+- **Groq** — for fast inference on Llama 3.3
+- **PostgreSQL community** — for the world's best open source database
+- **Streamlit, Typer, Rich, Plotly** — for the frameworks
 
 ---
 
