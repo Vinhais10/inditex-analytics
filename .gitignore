@@ -1,5 +1,6 @@
 ﻿.env
 __pycache__/
 *.pyc
+*.log
 .venv/
-_test_groq.py
+venv/

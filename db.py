@@ -56,3 +56,25 @@ def _query_from_csv(sql: str) -> pd.DataFrame:
         return dfs["brands"].sort_values("brand_id")
 
     return pd.DataFrame()
+
+# ============================================================
+# SQLAlchemy engine (usado pelo agent para logging de queries)
+# ============================================================
+from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
+
+_engine: Engine | None = None
+
+def get_engine() -> Engine:
+    """Return a cached SQLAlchemy engine built from the .env config."""
+    global _engine
+    if _engine is None:
+        import os
+        host = os.getenv("DB_HOST", "localhost")
+        port = os.getenv("DB_PORT", "5432")
+        name = os.getenv("DB_NAME", "inditex_db")
+        user = os.getenv("DB_USER", "postgres")
+        pwd  = os.getenv("DB_PASSWORD", "")
+        url = f"postgresql+psycopg2://{user}:{pwd}@{host}:{port}/{name}"
+        _engine = create_engine(url, pool_pre_ping=True)
+    return _engine
