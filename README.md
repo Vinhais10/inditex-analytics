@@ -1,4 +1,4 @@
-content = """# Inditex Analytics
+# Inditex Analytics
 
 **A complete business intelligence suite for Inditex - combining PostgreSQL, a professional CLI, an AI-powered Data Agent, and an interactive dashboard.**
 
@@ -270,9 +270,3 @@ MIT - see [LICENSE](LICENSE).
 ---
 
 Built as part of a self-directed learning path applying real-world data analysis, SQL, and AI to business intelligence.
-"""
-
-with open("README.md", "w", encoding="utf-8") as f:
-    f.write(content)
-
-print("README.md gravado com sucesso. Tamanho:", len(content), "bytes")
