@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inditex Analytics — Business Intelligence for Fashion Retail</title>
+<meta name="description" content="Open-source analytics suite that turns Inditex financial data into answers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050505;--text:#fff;--muted:#9ca3af;--dim:#6b7280;--border:#1f1f1f;--border2:#2a2a2a;--gold:#c9a961;--goldSoft:rgba(201,169,97,.15);--green:#4ade80;--red:#f87171;--display:'Playfair Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,5,.7);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:all .3s}
+.navbar.scrolled{background:rgba(5,5,5,.95);border-bottom-color:var(--border)}
+.nav-container{max-width:1400px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.logo{font-family:var(--display);font-size:1.4rem;font-weight:500;flex-shrink:0}
+.logo em{font-style:italic;color:var(--gold)}
+.nav-links{display:flex;gap:36px;margin-left:auto}
+.nav-links a{font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+.menu-toggle span{display:block;width:24px;height:2px;background:var(--text)}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:100px 40px 60px;background:url('hero-texture.jpg') center/cover;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.75) 40%,rgba(5,5,5,.55) 100%);z-index:1}
+.hero-grid{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+.hero-text{max-width:620px}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;padding:10px 20px;border:1px solid var(--border2);border-radius:999px;font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:32px}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.hero h1{font-family:var(--display);font-size:clamp(2.8rem,5.5vw,5rem);font-weight:700;line-height:1.02;letter-spacing:-.02em;margin-bottom:32px}
+.hero h1 em{display:block;font-style:italic;font-weight:500;background:linear-gradient(135deg,var(--gold) 0%,#e8d5a0 50%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.1em}
+.hero-sub{font-family:var(--sans);font-size:1.05rem;line-height:1.7;color:#d1d5db;max-width:520px;margin-bottom:40px;font-weight:400}
+.hero-cta{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.btn-primary{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;padding:18px 36px;transition:all .25s;display:inline-block;border:1px solid transparent;cursor:pointer;background:var(--text);color:var(--bg)}
+.btn-primary:hover{background:var(--gold)}
+.trust-line{font-size:.75rem;color:var(--dim);letter-spacing:.05em}
+.trust-line .dot{margin:0 8px;color:var(--border2)}
+
+.hero-visual{display:flex;justify-content:flex-end;align-items:center}
+.dashboard-window{width:100%;max-width:600px;background:#0a0a0a;border:1px solid var(--border2);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.9),0 0 60px -30px var(--goldSoft);transition:transform .4s}
+.dashboard-window:hover{transform:translateY(-4px)}
+.window-header{display:flex;align-items:center;gap:8px;padding:14px 20px;background:#111;border-bottom:1px solid var(--border)}
+.window-header span[class^="dot-"]{width:10px;height:10px;border-radius:50%}
+.dot-red{background:#ff5f56}
+.dot-yellow{background:#ffbd2e}
+.dot-green{background:#27c93f}
+.window-title{margin-left:16px;font-family:var(--mono);font-size:.7rem;color:var(--dim)}
+
+.inside{padding:120px 40px}
+.inside-header{max-width:1200px;margin:0 auto 64px}
+.inside-header h2{font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);font-weight:500;letter-spacing:-.02em}
+.inside-header h2 em{font-style:italic;color:var(--gold)}
+.inside-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card{display:block;padding:48px 40px;border:1px solid var(--border);background:rgba(10,10,10,.5);transition:all .3s;cursor:pointer;position:relative}
+.feature-card:hover{border-color:var(--gold);background:rgba(201,169,97,.03);transform:translateY(-4px)}
+.feature-card::after{content:'→';position:absolute;top:48px;right:40px;color:var(--gold);font-size:1.2rem;opacity:0;transition:opacity .3s,transform .3s}
+.feature-card:hover::after{opacity:1;transform:translateX(4px)}
+.feature-num{font-family:var(--mono);font-size:.7rem;color:var(--gold);margin-bottom:32px;letter-spacing:.1em}
+.feature-card h3{font-family:var(--display);font-size:1.6rem;font-weight:500;margin-bottom:16px;letter-spacing:-.01em}
+.feature-card p{color:var(--muted);font-size:.95rem;line-height:1.7}
+
+.insights{padding:120px 40px;border-top:1px solid var(--border)}
+.insights-header{max-width:1200px;margin:0 auto 64px}
+.insights-header h2{font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);font-weight:500;letter-spacing:-.02em}
+.insights-header h2 em{font-style:italic;color:var(--gold)}
+.insights-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.insight-card{padding:48px 32px;background:var(--bg);transition:background .3s}
+.insight-card:hover{background:rgba(201,169,97,.03)}
+.insight-value{font-family:var(--display);font-size:3rem;font-weight:500;line-height:1;margin-bottom:16px;letter-spacing:-.02em}
+.insight-value.up{color:var(--green)}
+.insight-value.down{color:var(--red)}
+.insight-value.gold{color:var(--gold)}
+.insight-label{font-size:.9rem;margin-bottom:20px}
+.insight-source{font-family:var(--mono);font-size:.65rem;color:var(--dim);text-transform:uppercase;letter-spacing:.15em}
+
+.stack-cta{padding:100px 40px;border-top:1px solid var(--border)}
+.stack-cta-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.stack-side h3{font-family:var(--display);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:500;margin-bottom:32px;letter-spacing:-.02em}
+.stack-side h3 em{font-style:italic;color:var(--gold)}
+.stack-pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{font-family:var(--mono);font-size:.75rem;padding:8px 16px;border:1px solid var(--border2);border-radius:999px;color:var(--muted);transition:all .2s}
+.pill:hover{border-color:var(--gold);color:var(--text)}
+.cta-side{text-align:center}
+.cta-side h2{font-family:var(--display);font-size:clamp(2rem,4vw,3rem);font-weight:500;line-height:1.15;margin-bottom:20px;letter-spacing:-.02em}
+.cta-side h2 em{font-style:italic;color:var(--gold)}
+.cta-side p{color:var(--muted);margin-bottom:40px;max-width:400px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-block;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;padding:20px 48px;background:var(--text);color:var(--bg);transition:all .25s}
+.cta-btn:hover{background:var(--gold)}
+
+.footer{padding:60px 40px 40px;background:#030303;border-top:1px solid var(--border)}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;flex-wrap:wrap;gap:24px}
+.footer-brand{font-family:var(--display);font-size:1.2rem;font-weight:500}
+.footer-brand em{font-style:italic;color:var(--gold)}
+.footer-links{display:flex;gap:32px}
+.footer-links a{font-size:.8rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:32px;display:flex;flex-direction:column;gap:12px;font-size:.75rem;color:var(--dim);line-height:1.7}
+.footer-legal{color:var(--dim);font-size:.7rem}
+
+@media(max-width:1024px){.hero-grid{grid-template-columns:1fr;gap:60px}.hero-visual{justify-content:center}.stack-cta-inner{grid-template-columns:1fr;gap:60px}.cta-side{text-align:left}.cta-side p{margin-left:0;margin-right:0}}
+@media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(5,5,5,.98);padding:24px 40px;gap:20px;border-bottom:1px solid var(--border)}.menu-toggle{display:flex}.nav-container{padding:16px 24px}.hero{padding:100px 24px 60px}.inside,.insights,.stack-cta{padding:80px 24px}.inside-grid{grid-template-columns:1fr}.insights-grid{grid-template-columns:1fr}.container{padding:0 24px}.hero h1{font-size:2.5rem}.hero-sub{font-size:1rem}.footer-top{flex-direction:column;align-items:flex-start}.footer-links{flex-wrap:wrap;gap:20px}}
+</style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+<div class="nav-container">
+<a href="#" class="logo">Inditex <em>Analytics</em></a>
+<nav class="nav-links" id="navLinks">
+<a href="#inside">Inside</a>
+<a href="#insights">Insights</a>
+<a href="#stack">Stack</a>
+</nav>
+<button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+</header>
+
+<section class="hero">
+<div class="hero-grid">
+<div class="hero-text">
+<div class="eyebrow"><span class="eyebrow-dot"></span>UNOFFICIAL · INDITEX 2023–2025 ANNUAL REPORTS</div>
+<h1>Business Intelligence<em>for Fashion Retail</em></h1>
+<p class="hero-sub">An open-source analytics suite that turns three years of Zara, Bershka and Massimo Dutti financials into answers — through an AI data agent, a professional CLI, and an executive dashboard.</p>
+<div class="hero-cta">
+<a href="#inside" class="btn-primary">SEE IT IN ACTION</a>
+</div>
+<div class="trust-line">PostgreSQL 17 <span class="dot">·</span> Groq · GPT-OSS 120B <span class="dot">·</span> MIT Licensed</div>
+</div>
+<div class="hero-visual">
+<div class="dashboard-window">
+<div class="window-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span class="window-title">inditex-analytics — dashboard · FY2025</span></div>
+<img src="dashboard.png" alt="Inditex Analytics dashboard">
+</div>
+</div>
+</div>
+</section>
+
+<section class="inside" id="inside">
+<div class="container">
+<div class="inside-header"><h2>What's <em>inside</em></h2></div>
+<div class="inside-grid">
+<a class="feature-card" href="http://localhost:8501" target="_blank" rel="noopener">
+<div class="feature-num">01</div>
+<h3>Data Agent</h3>
+<p>Ask questions in plain English. The AI plans, writes the SQL, validates it, and explains the results.</p>
+</a>
+<a class="feature-card" href="https://github.com/Vinhais10/inditex-analytics" target="_blank" rel="noopener">
+<div class="feature-num">02</div>
+<h3>Professional CLI</h3>
+<p>Six commands with colored tables, medals, and progress spinners. Built with Typer and Rich.</p>
+</a>
+<a class="feature-card" href="http://localhost:8501" target="_blank" rel="noopener">
+<div class="feature-num">03</div>
+<h3>Dashboard</h3>
+<p>Interactive KPI cards, sales breakdowns, and ABC portfolio analysis for executives.</p>
+</a>
+</div>
+</div>
+</section>
+
+<section class="insights" id="insights">
+<div class="container">
+<div class="insights-header"><h2>Business <em>insights</em></h2></div>
+<div class="insights-grid">
+<div class="insight-card"><div class="insight-value gold">70.4%</div><div class="insight-label">Zara share of net sales</div><div class="insight-source">INDITEX 2025 ANNUAL REPORT</div></div>
+<div class="insight-card"><div class="insight-value up">+15.5%</div><div class="insight-label">Oysho YoY growth</div><div class="insight-source">INDITEX 2025 ANNUAL REPORT</div></div>
+<div class="insight-card"><div class="insight-value down">−232</div><div class="insight-label">Fewer stores 2023–2025</div><div class="insight-source">INDITEX 2025 ANNUAL REPORT</div></div>
+<div class="insight-card"><div class="insight-value gold">3.2%</div><div class="insight-label">Revenue growth 2025</div><div class="insight-source">INDITEX 2025 ANNUAL REPORT</div></div>
+</div>
+</div>
+</section>
+
+<section class="stack-cta" id="stack">
+<div class="stack-cta-inner">
+<div class="stack-side">
+<h3>Built <em>with</em></h3>
+<div class="stack-pills">
+<span class="pill">Python 3.11</span><span class="pill">PostgreSQL 17</span><span class="pill">Typer</span><span class="pill">Rich</span><span class="pill">Streamlit</span><span class="pill">Plotly</span><span class="pill">SQLAlchemy</span><span class="pill">Groq · GPT-OSS 120B</span><span class="pill">pandas</span>
+</div>
+</div>
+<div class="cta-side">
+<h2>Explore the <em>full project</em></h2>
+<p>Source, data model, notebooks and dashboard — all open, all reproducible.</p>
+<a href="https://github.com/Vinhais10/inditex-analytics" target="_blank" rel="noopener" class="cta-btn">GITHUB</a>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-top">
+<div class="footer-brand">Inditex <em>Analytics</em></div>
+<div class="footer-links">
+<a href="https://github.com/Vinhais10/inditex-analytics" target="_blank" rel="noopener">GitHub</a>
+<a href="https://www.linkedin.com/in/diogo-vinhais-30090b17a/" target="_blank" rel="noopener">LinkedIn</a>
+<a href="mailto:diogovinnhais100@gmail.com">Email</a>
+</div>
+</div>
+<div class="footer-bottom">
+<div>© 2026 Inditex Analytics · MIT Licensed</div>
+<div class="footer-legal">Independent educational project. Not affiliated with, endorsed by, or sponsored by Inditex. Trademarks belong to their owners.</div>
+</div>
+</div>
+</footer>
+
+<script>
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>40)});
+const menuToggle=document.getElementById('menuToggle');
+const navLinks=document.getElementById('navLinks');
+if(menuToggle){menuToggle.addEventListener('click',()=>{navLinks.classList.toggle('open')})}
+document.querySelectorAll('.nav-links a').forEach(l=>{l.addEventListener('click',()=>{navLinks.classList.remove('open')})});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){const h=this.getAttribute('href');if(h==='#')return;const t=document.querySelector(h);if(t){e.preventDefault();const o=80;const y=t.getBoundingClientRect().top+window.pageYOffset-o;window.scrollTo({top:y,behavior:'smooth'})}})});
+</script>
+</body>
+</html>
