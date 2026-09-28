@@ -1,8 +1,8 @@
-# Inditex Analytics
+﻿# Inditex Analytics
 
-**A complete business intelligence suite for Inditex — combining PostgreSQL, a professional CLI, an AI-powered Data Agent, and an interactive dashboard.**
+**A complete business intelligence suite for Inditex â€” combining PostgreSQL, a professional CLI, an AI-powered Data Agent, and an interactive dashboard.**
 
-**Real financial data (2023-2025) · Ask questions in plain English · AI writes the SQL · Full audit trail**
+**Real financial data (2023-2025) Â· Ask questions in plain English Â· AI writes the SQL Â· Full audit trail**
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
@@ -13,55 +13,57 @@
 
 ---
 
-## 📊 See It in Action
+## ðŸ“Š See It in Action
 
 ![Dashboard](screenshots/dashboard.png)
 
-> **Dashboard:** 4 KPI cards, sales by brand, growth ranking, and ABC portfolio analysis — all queried live from PostgreSQL.
+> **Dashboard:** 4 KPI cards, sales by brand, growth ranking, and ABC portfolio analysis â€” all queried live from PostgreSQL.
 
 ![Data Agent](screenshots/agent.png)
 
-> **Data Agent:** ask a question in plain English — the AI plans, writes the SQL, validates it, runs it, and explains the result with a business insight.
+> **Data Agent:** ask a question in plain English â€” the AI plans, writes the SQL, validates it, runs it, and explains the result with a business insight.
 
 ---
 
-## 🎯 What This Is
+## ðŸŽ¯ What This Is
 
-Inditex is the world's largest fashion retailer — owner of **Zara, Bershka, Stradivarius, Massimo Dutti, Pull&Bear, and Oysho**.
+Inditex is the world's largest fashion retailer â€” owner of **Zara, Bershka, Stradivarius, Massimo Dutti, Pull&Bear, and Oysho**.
 
 This project is a complete **business intelligence suite** that answers real questions about Inditex's financial performance, combining **four interfaces** over the same PostgreSQL database:
 
 | | Interface | What It Does |
 |---|---|---|
-| 🖥️ | **Professional CLI** | Instant reports in your terminal (Typer + Rich) |
-| 🤖 | **Data Agent** | Ask questions in plain English — the AI writes the SQL |
-| 📊 | **Streamlit Dashboard** | Interactive charts and KPIs |
-| 🗄️ | **PostgreSQL Database** | Real relational schema with joins, CTEs, window functions |
+| ðŸ–¥ï¸ | **Professional CLI** | Instant reports in your terminal (Typer + Rich) |
+| ðŸ¤– | **Data Agent** | Ask questions in plain English â€” the AI writes the SQL |
+| ðŸ“Š | **Streamlit Dashboard** | Interactive charts and KPIs |
+| ðŸ—„ï¸ | **PostgreSQL Database** | Real relational schema with joins, CTEs, window functions |
 
 **Real business intelligence. Real data. Real engineering.**
 
 ---
 
-## ✨ Features
+## âœ¨ Features
 
-### 🤖 Data Agent (AI-Powered SQL)
+### ðŸ¤– Data Agent (AI-Powered SQL)
 
-- **Natural language to SQL** — English, Portuguese, or Spanish
-- **Chain of Thought** — explains its reasoning *before* writing SQL
-- **Few-shot prompting** — learns from curated examples for higher accuracy
-- **Auto-retry** — if the SQL fails, the agent reads the error and fixes it
-- **SQL validation** — only SELECT and WITH allowed (blocks all mutations)
-- **Full audit trail** — every query logged to query_log table with timing
-- **Follow-up suggestions** — the agent proposes 3 related questions
+- **Natural language to SQL** â€” English, Portuguese, or Spanish
+- **Chain of Thought** â€” explains its reasoning *before* writing SQL
+- **Few-shot prompting** â€” learns from curated examples for higher accuracy
+- **Auto-retry** â€” if the SQL fails, the agent reads the error and fixes it
+- **SQL validation** â€” only SELECT and WITH allowed (blocks all mutations)
+- **Full audit trail** â€” every query logged to query_log table with timing
+- **Follow-up suggestions** â€” the agent proposes 3 related questions
 
-### 🖥️ Professional CLI
+### ðŸ–¥ï¸ Professional CLI
 
 - Built with **Typer** + **Rich** for a polished terminal experience
-- Six commands: eport, rands, bc, egions, growth, sk
+- Six commands: 
+eport, rands, bc, 
+egions, growth, sk
 - Colored tables, progress spinners, medals, ASCII bar charts
 - Millisecond-level query timing displayed on every answer
 
-### 📊 Dashboard
+### ðŸ“Š Dashboard
 
 - 4 KPI cards (revenue, net income, stores, countries)
 - Sales by brand (bar chart)
@@ -69,7 +71,7 @@ This project is a complete **business intelligence suite** that answers real que
 - Geographic distribution (donut chart)
 - ABC portfolio analysis table
 
-### 🗄️ Database
+### ðŸ—„ï¸ Database
 
 - **5 normalized tables** with proper foreign keys
 - Window functions, CTEs, aggregations, and joins used throughout
@@ -78,41 +80,41 @@ This project is a complete **business intelligence suite** that answers real que
 
 ---
 
-## 🧠 How the Data Agent Works
+## ðŸ§  How the Data Agent Works
 
 The agent follows a **7-step pipeline**:
 
-    ┌──────────────────────────────────────────────────┐
-    │  "Which brand is growing fastest?"               │
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  1. PLAN      LLM reasons about the approach     │
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  2. GENERATE  LLM writes SQL (few-shot examples) │
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  3. VALIDATE  Block non-SELECT / non-WITH        │
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  4. EXECUTE   Run on PostgreSQL (retry on error) │
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  5. LOG       Save to query_log with timing      │
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  6. EXPLAIN   Natural language + business insight│
-    └─────────────────────┬────────────────────────────┘
-                          ▼
-    ┌──────────────────────────────────────────────────┐
-    │  7. SUGGEST   3 follow-up questions              │
-    └──────────────────────────────────────────────────┘
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  "Which brand is growing fastest?"               â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  1. PLAN      LLM reasons about the approach     â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  2. GENERATE  LLM writes SQL (few-shot examples) â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  3. VALIDATE  Block non-SELECT / non-WITH        â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  4. EXECUTE   Run on PostgreSQL (retry on error) â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  5. LOG       Save to query_log with timing      â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  6. EXPLAIN   Natural language + business insightâ”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚  7. SUGGEST   3 follow-up questions              â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 
 **The agent never invents data.** It builds SQL from a fixed schema, executes it against real data, and explains the result.
 
@@ -120,7 +122,7 @@ Read more in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ---
 
-## 💬 Example Queries
+## ðŸ’¬ Example Queries
 
 Try asking the Data Agent anything from this list:
 
@@ -133,11 +135,11 @@ Try asking the Data Agent anything from this list:
 | "Top 3 brands by growth with their market share" | Multi-metric analysis |
 | "What is the profit margin in 2025?" | Profitability |
 
-The agent works in **English, Portuguese, and Spanish** — it responds in the language of the question.
+The agent works in **English, Portuguese, and Spanish** â€” it responds in the language of the question.
 
 ---
 
-## 🚀 Quick Start
+## ðŸš€ Quick Start
 
 ### 1. Clone and install
 
@@ -179,43 +181,43 @@ Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys
 
 ---
 
-## 📁 Project Structure
+## ðŸ“ Project Structure
 
     inditex-analytics/
-    ├── agent.py                # Data Agent (AI SQL + Chain of Thought)
-    ├── cli.py                  # Professional CLI (Typer + Rich)
-    ├── app.py                  # Streamlit dashboard
-    ├── db.py                   # Shared database interface
-    ├── queries.sql             # All SQL queries, commented
-    ├── insights.md             # Business analysis of the data
-    ├── ARCHITECTURE.md         # Technical deep-dive
-    ├── WHY.md                  # Problem statement and motivation
-    ├── screenshots/            # Product screenshots
-    ├── requirements.txt
-    ├── .env.example
-    ├── .gitignore
-    └── README.md
+    â”œâ”€â”€ agent.py                # Data Agent (AI SQL + Chain of Thought)
+    â”œâ”€â”€ cli.py                  # Professional CLI (Typer + Rich)
+    â”œâ”€â”€ app.py                  # Streamlit dashboard
+    â”œâ”€â”€ db.py                   # Shared database interface
+    â”œâ”€â”€ queries.sql             # All SQL queries, commented
+    â”œâ”€â”€ insights.md             # Business analysis of the data
+    â”œâ”€â”€ ARCHITECTURE.md         # Technical deep-dive
+    â”œâ”€â”€ WHY.md                  # Problem statement and motivation
+    â”œâ”€â”€ screenshots/            # Product screenshots
+    â”œâ”€â”€ requirements.txt
+    â”œâ”€â”€ .env.example
+    â”œâ”€â”€ .gitignore
+    â””â”€â”€ README.md
 
 ---
 
-## 📈 Business Insights
+## ðŸ“ˆ Business Insights
 
-The project produced **six real findings** about Inditex — see [insights.md](insights.md):
+The project produced **six real findings** about Inditex â€” see [insights.md](insights.md):
 
 | # | Insight |
 |---|---|
-| 1 | **Zara = 70.4% of sales** — high concentration risk |
-| 2 | **Zara grows only 1% YoY** — the flagship is stagnating |
-| 3 | **Oysho grows 15.5%** — small brands grow 15× faster |
+| 1 | **Zara = 70.4% of sales** â€” high concentration risk |
+| 2 | **Zara grows only 1% YoY** â€” the flagship is stagnating |
+| 3 | **Oysho grows 15.5%** â€” small brands grow 15Ã— faster |
 | 4 | **Growth rate halved** from 7.47% (2024) to 3.19% (2025) |
-| 5 | **Fewer stores, more revenue** — 232 fewer stores, +€3.9B revenue |
-| 6 | **Zara + Bershka = 78.6%** — ABC Class A |
+| 5 | **Fewer stores, more revenue** â€” 232 fewer stores, +â‚¬3.9B revenue |
+| 6 | **Zara + Bershka = 78.6%** â€” ABC Class A |
 
-**Strategic takeaway:** Inditex is diversifying away from Zara while reducing physical stores — the classic "fewer, better" modern retail strategy.
+**Strategic takeaway:** Inditex is diversifying away from Zara while reducing physical stores â€” the classic "fewer, better" modern retail strategy.
 
 ---
 
-## 🛠️ Tech Stack
+## ðŸ› ï¸ Tech Stack
 
 | Layer | Tools |
 |---|---|
@@ -229,19 +231,19 @@ The project produced **six real findings** about Inditex — see [insights.md](i
 
 ---
 
-## 🎓 What This Project Demonstrates
+## ðŸŽ“ What This Project Demonstrates
 
-- **PostgreSQL** — schema design, foreign keys, window functions, CTEs
-- **Professional Python** — Typer, Rich, type hints, clean modules
-- **AI Engineering** — Chain of Thought, few-shot prompting, SQL validation, auto-retry
-- **LLM Integration** — Groq, prompt design, error recovery
-- **Data Visualization** — Streamlit, Plotly
-- **Software Architecture** — shared interfaces, separation of concerns
-- **Business Analysis** — ABC analysis, growth ranking, executive summaries
+- **PostgreSQL** â€” schema design, foreign keys, window functions, CTEs
+- **Professional Python** â€” Typer, Rich, type hints, clean modules
+- **AI Engineering** â€” Chain of Thought, few-shot prompting, SQL validation, auto-retry
+- **LLM Integration** â€” Groq, prompt design, error recovery
+- **Data Visualization** â€” Streamlit, Plotly
+- **Software Architecture** â€” shared interfaces, separation of concerns
+- **Business Analysis** â€” ABC analysis, growth ranking, executive summaries
 
 ---
 
-## 🗺️ Roadmap
+## ðŸ—ºï¸ Roadmap
 
 - [x] PostgreSQL schema with real Inditex data
 - [x] Professional CLI with 6 commands
@@ -260,18 +262,18 @@ The project produced **six real findings** about Inditex — see [insights.md](i
 
 ---
 
-## 📜 License
+## ðŸ“œ License
 
-MIT — see [LICENSE](LICENSE).
+MIT â€” see [LICENSE](LICENSE).
 
 ---
 
-## 🙏 Acknowledgements
+## ðŸ™ Acknowledgements
 
-- **Inditex** — for publishing detailed annual reports
-- **Groq** — for fast inference on Llama 3.3
-- **PostgreSQL community** — for the world's best open source database
-- **Streamlit, Typer, Rich, Plotly** — for the frameworks
+- **Inditex** â€” for publishing detailed annual reports
+- **Groq** â€” for fast inference on Llama 3.3
+- **PostgreSQL community** â€” for the world's best open source database
+- **Streamlit, Typer, Rich, Plotly** â€” for the frameworks
 
 ---
 
