@@ -1,4 +1,4 @@
-# Inditex Analytics
+content = """# Inditex Analytics
 
 **A complete business intelligence suite for Inditex - combining PostgreSQL, a professional CLI, an AI-powered Data Agent, and an interactive dashboard.**
 
@@ -13,15 +13,9 @@
 
 ---
 
-## See It in Action
+## Live Site
 
-![Dashboard](screenshots/dashboard.png)
-
-> **Dashboard:** 4 KPI cards, sales by brand, growth ranking, and ABC portfolio analysis - all queried live from PostgreSQL.
-
-![Data Agent](screenshots/agent.png)
-
-> **Data Agent:** ask a question in plain English - the AI plans, writes the SQL, validates it, runs it, and explains the result with a business insight.
+**[Open the live site](https://vinhais10.github.io/inditex-analytics/)** - explore the four interfaces of the project with direct links to the Data Agent and the Professional CLI.
 
 ---
 
@@ -189,7 +183,7 @@ Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys
     |-- insights.md             # Business analysis of the data
     |-- ARCHITECTURE.md         # Technical deep-dive
     |-- WHY.md                  # Problem statement and motivation
-    |-- screenshots/            # Product screenshots
+    |-- docs/                   # GitHub Pages site
     |-- requirements.txt
     |-- .env.example
     |-- .gitignore
@@ -251,6 +245,7 @@ The project produced **six real findings** about Inditex - see [insights.md](ins
 - [x] Business insights document
 - [x] Technical architecture document
 - [x] Three languages (EN / PT / ES)
+- [x] Marketing site on GitHub Pages
 - [ ] Add 2020-2022 historical data
 - [ ] Support for multiple companies (H&M, Nike, Adidas)
 - [ ] PDF report generation
@@ -275,3 +270,9 @@ MIT - see [LICENSE](LICENSE).
 ---
 
 Built as part of a self-directed learning path applying real-world data analysis, SQL, and AI to business intelligence.
+"""
+
+with open("README.md", "w", encoding="utf-8") as f:
+    f.write(content)
+
+print("README.md gravado com sucesso. Tamanho:", len(content), "bytes")
