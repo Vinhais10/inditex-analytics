@@ -1,4 +1,4 @@
-﻿"""
+"""
 Inditex Analytics - Elite Natural Language SQL Agent.
 """
 
@@ -23,6 +23,7 @@ def _get_groq_key():
 # Cloudflare AI Gateway (proxy para Groq)
 CF_ACCOUNT_ID = "ba5cb58ffe90179fc0401413385fcafa"
 CF_GATEWAY_ID = "inditex-gateway"
+CF_AIG_TOKEN = os.getenv("CF_AIG_TOKEN", "")
 
 client = Groq(
     api_key=_get_groq_key(),
