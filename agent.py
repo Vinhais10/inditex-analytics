@@ -27,7 +27,8 @@ CF_AIG_TOKEN = os.getenv("CF_AIG_TOKEN", "")
 
 client = Groq(
     api_key=_get_groq_key(),
-    base_url=f"https://gateway.ai.cloudflare.com/v1/{CF_ACCOUNT_ID}/{CF_GATEWAY_ID}/groq"
+    base_url=f"https://gateway.ai.cloudflare.com/v1/{CF_ACCOUNT_ID}/{CF_GATEWAY_ID}/groq",
+    default_headers={"cf-aig-authorization": f"Bearer {CF_AIG_TOKEN}"}
 )
 MODEL = "openai/gpt-oss-120b"
 
@@ -45,7 +46,7 @@ LANGUAGE RULES (highest priority):
 
 CONVERSATION CONTEXT:
 - You may receive previous messages in the conversation.
-- If the user asks a follow-up question (e.g., "and the year before?", "e no ano anterior?", "y el año anterior?"), use the previous conversation to understand WHAT they are asking about.
+- If the user asks a follow-up question (e.g., "and the year before?", "e no ano anterior?", "y el aÃ±o anterior?"), use the previous conversation to understand WHAT they are asking about.
 - Example: if the previous answer was about a BRAND, the follow-up "and the year before?" also refers to BRANDS (not regions).
 - Do NOT switch topics unless the user explicitly changes them.
 
