@@ -1,5 +1,13 @@
 id,region,year,sales_pct
-1,Europe (excl. Spain),2025,51.3
-2,Americas,2025,17.8
-3,Spain,2025,15.9
-4,Asia & Rest of World,2025,15.0
+1,Europe (excl. Spain),2025,51.30
+2,Americas,2025,17.80
+3,Spain,2025,15.90
+4,Asia & Rest of World,2025,15.00
+5,Europe (excl. Spain),2023,47.50
+6,Americas,2023,20.50
+7,Asia & Rest of World,2023,17.00
+8,Spain,2023,15.00
+9,Europe (excl. Spain),2024,49.00
+10,Americas,2024,19.20
+11,Asia & Rest of World,2024,16.50
+12,Spain,2024,15.30
