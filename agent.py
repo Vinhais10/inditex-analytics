@@ -20,7 +20,14 @@ def _get_groq_key():
     return key
 
 
-client = Groq(api_key=_get_groq_key())
+# Cloudflare AI Gateway (proxy para Groq)
+CF_ACCOUNT_ID = "ba5cb58ffe90179fc0401413385fcafa"
+CF_GATEWAY_ID = "inditex-gateway"
+
+client = Groq(
+    api_key=_get_groq_key(),
+    base_url=f"https://gateway.ai.cloudflare.com/v1/{CF_ACCOUNT_ID}/{CF_GATEWAY_ID}/groq"
+)
 MODEL = "openai/gpt-oss-120b"
 
 
@@ -447,3 +454,4 @@ def ask(question: str, verbose: bool = False, history: list = None) -> dict:
         "duration_ms": execution.get("duration_ms"),
         "language": lang,
     }
+
