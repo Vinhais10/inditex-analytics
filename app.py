@@ -1,4 +1,4 @@
-﻿"""Inditex Analytics - Streamlit Dashboard."""
+"""Inditex Analytics - Streamlit Dashboard."""
 
 import streamlit as st
 import plotly.graph_objects as go
@@ -62,6 +62,7 @@ def get_results():
         SELECT b.brand_name, s.sales_millions, s.growth_pct
         FROM sales_by_brand s
         JOIN brands b ON s.brand_id = b.brand_id
+        WHERE s.year = 2025
         ORDER BY s.sales_millions DESC;
     """)
 
@@ -304,4 +305,4 @@ st.plotly_chart(fig4, use_container_width=True)
 # FOOTER
 # ============================================================
 st.divider()
-st.caption("Built with PostgreSQL · Streamlit · Groq Llama 3.3 · Data: Inditex annual reports 2023–2025")
+st.caption("Built with PostgreSQL · Streamlit · Groq GPT-OSS 120B · Data: Inditex annual reports 2023–2025")
