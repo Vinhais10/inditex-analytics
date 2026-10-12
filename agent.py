@@ -46,7 +46,7 @@ LANGUAGE RULES (highest priority):
 
 CONVERSATION CONTEXT:
 - You may receive previous messages in the conversation.
-- If the user asks a follow-up question (e.g., "and the year before?", "e no ano anterior?", "y el aÃ±o anterior?"), use the previous conversation to understand WHAT they are asking about.
+- If the user asks a follow-up question (e.g., "and the year before?", "e no ano anterior?", "y el aÃƒÂ±o anterior?"), use the previous conversation to understand WHAT they are asking about.
 - Example: if the previous answer was about a BRAND, the follow-up "and the year before?" also refers to BRANDS (not regions).
 - Do NOT switch topics unless the user explicitly changes them.
 
@@ -139,80 +139,19 @@ SQL: WITH shares AS (SELECT b.brand_name, s.year, s.sales_millions * 100.0 / SUM
 
 
 def detect_language(text: str) -> str:
-    t = " " + text.lower().strip() + " "
-
-    pt_strong = [
-        " qual", " quais", " quanto", " quantos", " quantas",
-        " onde", " quando", " porque",
-        "regiao", "vendas", "receita", "lucro",
-        "cresce ", "cresceu", "crescimento",
-        "lojas", "sao ", "estao ", "eram",
-        " e a marca", " e o ", " e a ",
-        "nao ", "mais rapido", "mais rapida", "mais rentavel",
-        "melhor marca", "melhor ", "pior ",
-        "quantas lojas", "que regiao",
-        " como ", " como?",
-        "tens", "temos", "certo", "informacao",
-        "dados", " so ", "apenas", "existe", "ha ",
-        "podes", "queres", "quero", "tambem",
-        "entao", "verdade",
-    ]
-    es_strong = [
-        "cual ", "cuales ", "cuanto", "cuantos", "cuantas",
-        " donde", " cuando",
-        "region", "ventas", "ingresos", "beneficio",
-        "crece ", "crecio", "crecimiento",
-        "tiendas", "estan ",
-        " es la marca", " es el ", " es la ", " es mejor",
-        " mas rapido", " mas rapida", " mas rentable",
-        "mejor marca", "mejor ", "peor ",
-        "que marca", "que region",
-        " como ", " como?",
-        "tienes", "tenemos", "cierto", "informacion",
-        "datos", " solo ", "existe", "hay ",
-        "puedes", "quieres", "quiero", "tambien",
-        "entonces", "verdad",
-        "cuota", "peso relativo",
-    ]
-    shared_pt_es = [
-        "marca", "ano", "region", "margen", "margem",
-        "loja", "tienda", "venda", "venta",
-    ]
-    en_strong = [
-        "which ", "what ", "how ", "where ", "when ", "why ",
-        " is ", " are ", " the ", " of ", " in ", " for ",
-        "brand", "region", "sales", "revenue", "profit",
-        "grow", "growing", "growth", "margin",
-        "stores", "countries", "year",
-        "fastest", "most", "biggest", "best", "top ",
-        "does ", "do ", "did ", "was ", "were ",
-        "market share", "share", "gained", "lost",
-    ]
-
-    pt_score = es_score = en_score = 0
-
-    for m in pt_strong:
-        if m in t: pt_score += 2
-    for m in es_strong:
-        if m in t: es_score += 2
-    for m in shared_pt_es:
-        if m in t:
-            pt_score += 1
-            es_score += 1
-    for m in en_strong:
-        if m in t: en_score += 1
-
-    if any(c in t for c in "\u00e3\u00f5\u00e7"): pt_score += 4
-    if any(c in t for c in "\u00f1\u00bf\u00a1"): es_score += 4
-    if any(c in t for c in "\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4"):
-        pt_score += 1
-        es_score += 1
-
-    scores = {"pt": pt_score, "es": es_score, "en": en_score}
-    best = max(scores, key=scores.get)
-    if scores[best] == 0: return "en"
-    return best
-
+    """Detect language using langdetect, restricted to en/pt/es."""
+    try:
+        from langdetect import detect, DetectorFactory
+        DetectorFactory.seed = 0  # resultado deterministico
+        lang = detect(text)
+        if lang in ("pt", "es", "en"):
+            return lang
+        # Casos proximos (ca, gl) tratamos como PT
+        if lang in ("ca", "gl"):
+            return "pt"
+        return "en"
+    except Exception:
+        return "en"
 
 def _build_messages(prompt: str, history: list = None) -> list:
     """Build messages with system prompt + history + new prompt."""
