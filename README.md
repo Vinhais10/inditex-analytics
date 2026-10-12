@@ -77,28 +77,28 @@ This project is a complete **business intelligence suite** that answers real que
 
 The agent follows a **7-step pipeline**:
 
-    "Which brand is growing fastest?"
-                |
-                v
-    1. PLAN      LLM reasons about the approach
-                |
-                v
-    2. GENERATE  LLM writes SQL (few-shot examples)
-                |
-                v
-    3. VALIDATE  Block non-SELECT / non-WITH
-                |
-                v
-    4. EXECUTE   Run on PostgreSQL (retry on error)
-                |
-                v
-    5. LOG       Save to query_log with timing
-                |
-                v
-    6. EXPLAIN   Natural language + business insight
-                |
-                v
-    7. SUGGEST   3 follow-up questions
+ "Which brand is growing fastest?"
+ |
+ v
+ 1. PLAN LLM reasons about the approach
+ |
+ v
+ 2. GENERATE LLM writes SQL (few-shot examples)
+ |
+ v
+ 3. VALIDATE Block non-SELECT / non-WITH
+ |
+ v
+ 4. EXECUTE Run on PostgreSQL (retry on error)
+ |
+ v
+ 5. LOG Save to query_log with timing
+ |
+ v
+ 6. EXPLAIN Natural language + business insight
+ |
+ v
+ 7. SUGGEST 3 follow-up questions
 
 **The agent never invents data.** It builds SQL from a fixed schema, executes it against real data, and explains the result.
 
@@ -127,16 +127,16 @@ The agent works in **English, Portuguese, and Spanish** - it responds in the lan
 
 ### 1. Clone and install
 
-    git clone https://github.com/Vinhais10/inditex-analytics.git
-    cd inditex-analytics
-    pip install -r requirements.txt
+ git clone https://github.com/Vinhais10/inditex-analytics.git
+ cd inditex-analytics
+ pip install -r requirements.txt
 
 ### 2. Set up PostgreSQL
 
 Install PostgreSQL 17, then:
 
-    psql -U postgres
-    CREATE DATABASE inditex_db;
+ psql -U postgres
+ CREATE DATABASE inditex_db;
 
 Load the schema and data (see queries.sql for the structure).
 
@@ -144,12 +144,12 @@ Load the schema and data (see queries.sql for the structure).
 
 Copy .env.example to .env:
 
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_NAME=inditex_db
-    DB_USER=postgres
-    DB_PASSWORD=your_password
-    GROQ_API_KEY=your_groq_key
+ DB_HOST=localhost
+ DB_PORT=5432
+ DB_NAME=inditex_db
+ DB_USER=postgres
+ DB_PASSWORD=your_password
+ GROQ_API_KEY=your_groq_key
 
 Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys).
 
@@ -157,37 +157,37 @@ Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys
 
 **Data Agent (Streamlit):**
 
-    py -m streamlit run agent_app.py
+ py -m streamlit run agent_app.py
 
 **Dashboard (Streamlit):**
 
-    py -m streamlit run app.py
+ py -m streamlit run app.py
 
 **CLI:**
 
-    python cli.py --help
-    python cli.py report
-    python cli.py ask "Which brand is growing fastest?"
+ python cli.py --help
+ python cli.py report
+ python cli.py ask "Which brand is growing fastest?"
 
 ---
 
 ## Project Structure
 
-    inditex-analytics/
-    |-- agent.py                # Data Agent (AI SQL + Chain of Thought)
-    |-- agent_app.py            # Streamlit app for the Data Agent
-    |-- cli.py                  # Professional CLI (Typer + Rich)
-    |-- app.py                  # Streamlit dashboard
-    |-- db.py                   # Shared database interface
-    |-- queries.sql             # All SQL queries, commented
-    |-- insights.md             # Business analysis of the data
-    |-- ARCHITECTURE.md         # Technical deep-dive
-    |-- WHY.md                  # Problem statement and motivation
-    |-- docs/                   # GitHub Pages site
-    |-- requirements.txt
-    |-- .env.example
-    |-- .gitignore
-    |-- README.md
+ inditex-analytics/
+ |-- agent.py # Data Agent (AI SQL + Chain of Thought)
+ |-- agent_app.py # Streamlit app for the Data Agent
+ |-- cli.py # Professional CLI (Typer + Rich)
+ |-- app.py # Streamlit dashboard
+ |-- db.py # Shared database interface
+ |-- queries.sql # All SQL queries, commented
+ |-- insights.md # Business analysis of the data
+ |-- ARCHITECTURE.md # Technical deep-dive
+ |-- WHY.md # Problem statement and motivation
+ |-- docs/ # GitHub Pages site
+ |-- requirements.txt
+ |-- .env.example
+ |-- .gitignore
+ |-- README.md
 
 ---
 

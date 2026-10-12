@@ -6,35 +6,35 @@ Technical deep-dive into how Inditex Analytics is built.
 
 ## System Overview
 
-    +---------------------+
-    |   PostgreSQL 17     |
-    |   inditex_db        |
-    |---------------------|
-    |   brands            |
-    |   sales_by_brand    |
-    |   sales_by_region   |
-    |   financials        |
-    |   query_log         |
-    +----------+----------+
-               |
-               | (psycopg2 + SQLAlchemy)
-               |
-    +----------+----------+-------------------+
-    |                     |                   |
-    v                     v                   v
-+---------+         +----------+        +-----------+
-|   CLI   |         |  Data    |        | Dashboard |
-| Typer + |         |  Agent   |        | Streamlit |
-|  Rich   |         | Groq LLM |        | + Plotly  |
-+---------+         +----------+        +-----------+
-    |                     |                   |
-    +---------------------+-------------------+
-                          |
-                    +-----+-----+
-                    |  db.py    |
-                    | shared    |
-                    | interface |
-                    +-----------+
+ +---------------------+
+ | PostgreSQL 17 |
+ | inditex_db |
+ |---------------------|
+ | brands |
+ | sales_by_brand |
+ | sales_by_region |
+ | financials |
+ | query_log |
+ +----------+----------+
+ |
+ | (psycopg2 + SQLAlchemy)
+ |
+ +----------+----------+-------------------+
+ | | |
+ v v v
++---------+ +----------+ +-----------+
+| CLI | | Data | | Dashboard |
+| Typer + | | Agent | | Streamlit |
+| Rich | | Groq LLM | | + Plotly |
++---------+ +----------+ +-----------+
+ | | |
+ +---------------------+-------------------+
+ |
+ +-----+-----+
+ | db.py |
+ | shared |
+ | interface |
+ +-----------+
 
 ---
 
@@ -61,8 +61,8 @@ Technical deep-dive into how Inditex Analytics is built.
 
 Single point of access for all components:
 
-    from db import run_query
-    df = run_query("SELECT * FROM brands")
+ from db import run_query
+ df = run_query("SELECT * FROM brands")
 
 - Uses SQLAlchemy engine
 - Reads connection parameters from .env
@@ -103,23 +103,23 @@ An AI agent that converts natural language into SQL and explains results.
 
 **Pipeline (7 steps):**
 
-    Question (any language)
-         |
-    1. PLAN      -- LLM reasons about the approach
-         |
-    2. GENERATE  -- LLM writes SQL (few-shot examples)
-         |
-    3. VALIDATE  -- Block non-SELECT/WITH queries
-         |
-    4. EXECUTE   -- Run in PostgreSQL
-         |
-    5. RETRY     -- If it fails, LLM receives the error and fixes it
-         |
-    6. EXPLAIN   -- Natural language answer + insight
-         |
-    7. SUGGEST   -- 3 follow-up questions
-         |
-    Final result
+ Question (any language)
+ |
+ 1. PLAN -- LLM reasons about the approach
+ |
+ 2. GENERATE -- LLM writes SQL (few-shot examples)
+ |
+ 3. VALIDATE -- Block non-SELECT/WITH queries
+ |
+ 4. EXECUTE -- Run in PostgreSQL
+ |
+ 5. RETRY -- If it fails, LLM receives the error and fixes it
+ |
+ 6. EXPLAIN -- Natural language answer + insight
+ |
+ 7. SUGGEST -- 3 follow-up questions
+ |
+ Final result
 
 **Safety features:**
 
