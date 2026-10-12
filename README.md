@@ -260,13 +260,6 @@ MIT - see [LICENSE](LICENSE).
 
 ---
 
-## Acknowledgements
-
-- **Inditex** - for publishing detailed annual reports
-- **Groq** - for fast inference on GPT-OSS
-- **PostgreSQL community** - for the world's best open source database
-- **Streamlit, Typer, Rich, Plotly** - for the frameworks
-
 ---
 
 Built as part of a self-directed learning path applying real-world data analysis, SQL, and AI to business intelligence.
