@@ -1,4 +1,4 @@
-﻿"""Database connection - falls back to CSVs on Streamlit Cloud."""
+"""Database connection - falls back to CSVs on Streamlit Cloud."""
 
 import os
 import re
@@ -42,7 +42,7 @@ def _query_from_csv(sql: str) -> pd.DataFrame:
     dfs = {}
     for t in needed:
         if t not in _csv_cache:
-            _csv_cache[t] = pd.read_csv(f"{t}.csv")
+            _csv_cache[t] = pd.read_csv(f"data/{t}.csv")
         dfs[t] = _csv_cache[t].copy()
 
     # 3) Aplicar WHERE simples (year = X)
