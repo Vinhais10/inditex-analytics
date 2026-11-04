@@ -5,3 +5,7 @@ __pycache__/
 .venv/
 venv/
 web-turma2/
+
+# segurança
+.env.*
+!.env.example

@@ -1,3 +1,5 @@
+﻿![Tests](https://github.com/Vinhais10/inditex-analytics/actions/workflows/tests.yml/badge.svg)
+
 # Inditex Analytics
 
 **A complete business intelligence suite for Inditex - combining PostgreSQL, a professional CLI, an AI-powered Data Agent, and an interactive dashboard.**
@@ -263,3 +265,4 @@ MIT - see [LICENSE](LICENSE).
 ---
 
 Built as part of a self-directed learning path applying real-world data analysis, SQL, and AI to business intelligence.
+
