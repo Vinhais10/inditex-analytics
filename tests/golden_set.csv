@@ -1,0 +1,42 @@
+﻿id|idioma|bloco|pergunta|sql_referencia|resposta_esperada|nota
+1|EN|A|Which brand grew the most in 2025?|SELECT b.brand_name FROM sales_by_brand s JOIN brands b ON s.brand_id = b.brand_id WHERE s.year = 2025 ORDER BY s.growth_pct DESC, b.brand_name LIMIT 1|Oysho|growth_pct 15.50
+2|PT|A|Qual a marca que menos cresceu em 2025?|SELECT b.brand_name FROM sales_by_brand s JOIN brands b ON s.brand_id = b.brand_id WHERE s.year = 2025 ORDER BY s.growth_pct ASC, b.brand_name LIMIT 1|Zara|growth_pct 1.00
+3|ES|A|¿Cuánto creció Bershka en 2025?|SELECT s.growth_pct FROM sales_by_brand s JOIN brands b ON s.brand_id = b.brand_id WHERE b.brand_name = 'Bershka' AND s.year = 2025|12.20|
+4|EN|A|What were Zara's sales in 2025 in millions of euros?|SELECT s.sales_millions FROM sales_by_brand s JOIN brands b ON s.brand_id = b.brand_id WHERE b.brand_name = 'Zara' AND s.year = 2025|28051.00|
+5|PT|A|Qual a receita da Inditex em 2025?|SELECT revenue_millions FROM financials WHERE year = 2025|39864.00|
+6|EN|A|What was the net income in 2025?|SELECT net_income_millions FROM financials WHERE year = 2025|6220.00|
+7|ES|A|¿Cuál fue el margen bruto en 2025?|SELECT gross_margin_pct FROM financials WHERE year = 2025|58.30|percentagem (valor observado 58.30)
+8|PT|A|Quantas lojas tinha a Inditex em 2025?|SELECT stores_count FROM financials WHERE year = 2025|5460|
+9|EN|A|In how many countries did Inditex operate in 2025?|SELECT countries_count FROM financials WHERE year = 2025|97|
+10|PT|A|Qual a variação da receita entre 2023 e 2025 (M€)?|SELECT MAX(CASE WHEN year = 2025 THEN revenue_millions END) - MAX(CASE WHEN year = 2023 THEN revenue_millions END) FROM financials|3917.00|35947 em 2023 e 39864 em 2025
+11|EN|A|How much did net income change from 2023 to 2025?|SELECT MAX(CASE WHEN year = 2025 THEN net_income_millions END) - MAX(CASE WHEN year = 2023 THEN net_income_millions END) FROM financials|839.00|5381 em 2023 e 6220 em 2025
+12|ES|A|¿Cuántas tiendas perdió Inditex entre 2023 y 2025?|SELECT MAX(CASE WHEN year = 2025 THEN stores_count END) - MAX(CASE WHEN year = 2023 THEN stores_count END) FROM financials|-232|5692 para 5460
+13|EN|A|Which region had the highest share of sales in 2025?|SELECT region FROM sales_by_region WHERE year = 2025 ORDER BY sales_pct DESC LIMIT 1|Europe (excl. Spain)|51.30
+14|PT|A|Qual a região com menor peso nas vendas em 2025?|SELECT region FROM sales_by_region WHERE year = 2025 ORDER BY sales_pct ASC LIMIT 1|Asia & Rest of World|15.00
+15|ES|A|¿Qué porcentaje de ventas representa España en 2025?|SELECT sales_pct FROM sales_by_region WHERE region = 'Spain' AND year = 2025|15.90|
+16|EN|A|What share of sales did Asia & Rest of World have in 2023?|SELECT sales_pct FROM sales_by_region WHERE region = 'Asia & Rest of World' AND year = 2023|17.00|
+17|PT|A|Qual o peso da Europa (excl. Espanha) nas vendas em 2025?|SELECT sales_pct FROM sales_by_region WHERE region = 'Europe (excl. Spain)' AND year = 2025|51.30|
+18|EN|A|What were total brand sales in 2025?|SELECT SUM(sales_millions) FROM sales_by_brand WHERE year = 2025|39864.00|
+19|PT|A|Qual o total das vendas das marcas em 2024?|SELECT SUM(sales_millions) FROM sales_by_brand WHERE year = 2024|38626.00|
+20|ES|A|¿Cuál fue la venta total de las marcas en 2023?|SELECT SUM(sales_millions) FROM sales_by_brand WHERE year = 2023|37354.00|limitação: não bate com financials 2023 (35947)
+21|EN|A|Which brand had the highest sales in 2025?|SELECT b.brand_name FROM sales_by_brand s JOIN brands b ON s.brand_id = b.brand_id WHERE s.year = 2025 ORDER BY s.sales_millions DESC, b.brand_name LIMIT 1|Zara|sales 28051.00
+22|PT|A|Qual a marca com menos vendas em 2025?|SELECT b.brand_name FROM sales_by_brand s JOIN brands b ON s.brand_id = b.brand_id WHERE s.year = 2025 ORDER BY s.sales_millions ASC, b.brand_name LIMIT 1|Oysho|sales 960.00
+23|EN|A|How many brands are in the database?|SELECT COUNT(*) FROM brands|6|
+24|PT|A|Quantas regiões existem nos dados?|SELECT COUNT(DISTINCT region) FROM sales_by_region|4|
+25|ES|A|¿En qué año fue mayor el ingreso?|SELECT year FROM financials ORDER BY revenue_millions DESC LIMIT 1|2025|
+26|EN|B|How is Inditex doing?|n/a|PEDIR_CLARIFICACAO|métrica e ano em falta
+27|PT|B|Qual é a marca mais importante?|n/a|PEDIR_CLARIFICACAO|vendas ou crescimento?
+28|ES|B|¿Cómo va Inditex?|n/a|PEDIR_CLARIFICACAO|métrica e ano em falta
+29|PT|B|Quanto cresceu?|n/a|PEDIR_CLARIFICACAO|o quê e em que período?
+30|EN|B|Which brand is the best?|n/a|PEDIR_CLARIFICACAO|best em que métrica?
+31|PT|B|Como correu o ano?|n/a|PEDIR_CLARIFICACAO|que ano e que métrica?
+32|ES|B|¿Cuál es la región más importante?|n/a|PEDIR_CLARIFICACAO|vendas ou crescimento?
+33|EN|B|What is the profit?|n/a|PEDIR_CLARIFICACAO|bruto, líquido, de que ano?
+34|PT|B|Qual é a melhor loja?|n/a|PEDIR_CLARIFICACAO|não há dados por loja
+35|ES|B|¿Cuánto vendió?|n/a|PEDIR_CLARIFICACAO|qual marca, que ano?
+36|EN|C|What was online revenue in 2025?|n/a|NAO_SABE|sem coluna de canal
+37|PT|C|Quantos funcionários tem a Inditex?|n/a|NAO_SABE|sem dados de headcount
+38|ES|C|¿Cuántas tiendas tiene Zara en Portugal?|n/a|NAO_SABE|sem desagregação por país
+39|EN|C|What is Inditex's customer NPS?|n/a|NAO_SABE|sem dados de satisfação
+40|PT|C|Qual a previsão de receita para 2026?|n/a|NAO_SABE|sem previsões nos dados
+
